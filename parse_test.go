@@ -17,6 +17,10 @@ func run(input, sub, dom, tld string, t *testing.T) {
 	}
 }
 
+func Test0(t *testing.T) {
+	run("http://foo.com", "", "foo", "com", t)
+}
+
 func Test1(t *testing.T) {
 	run("http://zip.zop.foo.com", "zip.zop", "foo", "com", t)
 }

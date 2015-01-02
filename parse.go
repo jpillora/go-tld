@@ -24,6 +24,10 @@ func Parse(s string) (*URL, error) {
 		return nil, err
 	}
 
+	if url.Host == "" {
+		return &URL{URL: url}, nil
+	}
+
 	//index of tld
 	tld := 0
 
@@ -51,7 +55,7 @@ func Parse(s string) (*URL, error) {
 			//advance!
 			i++
 			//checked all is in guess
-			if len(guess) == i {
+			if len(guess) == i && dom[l-i] == '.' {
 				tld = i
 				break
 			}
