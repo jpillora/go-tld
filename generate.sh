@@ -13,8 +13,8 @@ strings=`for w in $words; do
 done`
 
 #output the generated file
-echo "//generated on '`date -u`'
-package tld
+echo "package tld
+//generated on '`date -u`'
 
 //list contains all TLDs reversed, then sorted
 var list = []string{

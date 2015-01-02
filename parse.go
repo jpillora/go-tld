@@ -1,5 +1,7 @@
 //go:generate sh generate.sh
 
+//The `tld` package has the same API as `net/url` except
+//`tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.
 package tld
 
 import (
@@ -14,7 +16,7 @@ type URL struct {
 }
 
 //Parse mirrors net/url.Parse except instead it returns
-//a tld.URL, which contains extra fields
+//a tld.URL, which contains extra fields.
 func Parse(s string) (*URL, error) {
 
 	url, err := url.Parse(s)

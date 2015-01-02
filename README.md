@@ -1,6 +1,6 @@
 # TLD Parser in Go
 
-The `tld` package has the same API ([see godoc](godoc.org/github.com/jpillora/go-tld)) as `net/url` except the returned struct `tld.URL` contains extra fields.
+The `tld` package has the same API ([see godoc](http://godoc.org/github.com/jpillora/go-tld)) as `net/url` except `tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.
 
 ### Install
 
