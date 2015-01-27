@@ -1,7 +1,7 @@
 //go:generate sh generate.sh
 
-//The `tld` package has the same API as `net/url` except
-//`tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.
+//The tld package has the same API as net/url except
+//tld.URL contains extra fields: Subdomain, Domain, TLD and Port.
 package tld
 
 import (

@@ -1,3 +1,11 @@
+This was written for fun, please use
+
+http://golang.org/x/net/publicsuffix
+
+instead.
+
+---
+
 # TLD Parser in Go
 
 The `tld` package has the same API ([see godoc](http://godoc.org/github.com/jpillora/go-tld)) as `net/url` except `tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.

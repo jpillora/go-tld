@@ -2,8 +2,10 @@
 
 #pull the official TLD list, remove comments and blanks, reverse each line, then sort
 words=`curl -# https://www.publicsuffix.org/list/effective_tld_names.dat |
-	grep "^[a-z]" |
-	grep -v "blogspot" |
+	grep -v "^//" |
+	grep -v "^\$" |
+	grep -v "^!" |
+	grep -v "^*" |
 	rev |
 	sort`
 
