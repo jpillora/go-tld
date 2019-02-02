@@ -32,3 +32,7 @@ func Test2(t *testing.T) {
 func Test3(t *testing.T) {
 	run("http://im.from.england.co.uk:1900", "im.from", "england", "co.uk", t)
 }
+
+func Test4(t *testing.T) {
+	run("https://google.com", "", "google", "com", t)
+}
