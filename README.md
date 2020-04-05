@@ -1,6 +1,6 @@
 # TLD Parser in Go
 
-[![GoDoc](https://godoc.org/github.com/jpillora/ipfilter?status.svg)](https://pkg.go.dev/github.com/jpillora/ipfilter?tab=doc)  [![Tests](https://github.com/jpillora/ipfilter/workflows/Tests/badge.svg)](https://github.com/jpillora/ipfilter/actions?workflow=Tests)
+[![GoDoc](https://godoc.org/github.com/jpillora/go-tld?status.svg)](https://pkg.go.dev/github.com/jpillora/go-tld?tab=doc)  [![Tests](https://github.com/jpillora/go-tld/workflows/Tests/badge.svg)](https://github.com/jpillora/go-tld/actions?workflow=Tests)
 
 The `tld` package has the same API ([see godoc](http://godoc.org/github.com/jpillora/go-tld)) as `net/url` except `tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.
 
