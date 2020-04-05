@@ -5,8 +5,10 @@
 package tld
 
 import (
-	"errors"
 	"net/url"
+	"strings"
+
+	"golang.org/x/net/publicsuffix"
 )
 
 //URL embeds net/url and adds extra fields ontop
@@ -18,76 +20,32 @@ type URL struct {
 //Parse mirrors net/url.Parse except instead it returns
 //a tld.URL, which contains extra fields.
 func Parse(s string) (*URL, error) {
-
 	url, err := url.Parse(s)
 	if err != nil {
 		return nil, err
 	}
-
 	if url.Host == "" {
 		return &URL{URL: url}, nil
 	}
-
 	dom, port := domainPort(url.Host)
-	//index of tld
-	tld := 0
-	i := 0
-	l := len(dom) - 1
-
-	//binary search the TLD list
-	lo := 0
-	hi := count - 1
-	for lo != hi && lo+1 != hi {
-
-		mid := (hi + lo) / 2
-		guess := list[mid]
-
-		//for binary search debugging...
-		// log.Printf("[%d - %d - %d] %s == %s (%s)", lo, mid, hi, string(dom[l-i]), string(guess[i]), guess)
-
-		if i < len(guess) && i <= l && guess[i] == dom[l-i] {
-			//store partial match
-			if i > tld && guess[i] == '.' {
-				tld = i
-			}
-			//advance!
-			i++
-			//checked all is in guess
-			if len(guess) == i && dom[l-i] == '.' {
-				tld = i
-				break
-			}
-		} else if i >= len(guess) || (i <= l && guess[i] < dom[l-i]) {
-			lo = mid
-			i = 0
-		} else {
-			hi = mid
-			i = 0
-		}
+	//etld+1
+	etld1, err := publicsuffix.EffectiveTLDPlusOne(dom)
+	if err != nil {
+		return nil, err
 	}
-
-	if tld == 0 {
-		return nil, errors.New("tld not found")
-	}
-
-	//extract the tld
-	t := dom[l-tld+1:]
-	//we can calculate the root domain
-	dom = dom[:l-tld]
+	//convert to domain name, and tld
+	i := strings.Index(etld1, ".")
+	domName := etld1[0:i]
+	tld := etld1[i+1:]
 	//and subdomain
 	sub := ""
-	for i := len(dom) - 1; i >= 0; i-- {
-		if dom[i] == '.' {
-			sub = dom[:i]
-			dom = dom[i+1:]
-			break
-		}
+	if rest := strings.TrimSuffix(dom, "."+etld1); rest != dom {
+		sub = rest
 	}
-
 	return &URL{
 		Subdomain: sub,
-		Domain:    dom,
-		TLD:       t,
+		Domain:    domName,
+		TLD:       tld,
 		Port:      port,
 		URL:       url,
 	}, nil
