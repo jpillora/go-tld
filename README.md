@@ -30,22 +30,24 @@ func main() {
 		"https://www.medi-cal.ca.gov/",
 		"https://ato.gov.au",
 		"http://a.very.complex-domain.co.uk:8080/foo/bar",
+		"http://a.domain.that.is.unmanaged",
 	}
 	for _, url := range urls {
 		u, _ := tld.Parse(url)
-		fmt.Printf("%50s = [ %s ] [ %s ] [ %s ] [ %s ] [ %s ]\n",
-			u, u.Subdomain, u.Domain, u.TLD, u.Port, u.Path)
+		fmt.Printf("%50s = [ %s ] [ %s ] [ %s ] [ %s ] [ %s ] [ %t ]\n",
+			u, u.Subdomain, u.Domain, u.TLD, u.Port, u.Path, u.Icann)
 	}
 }
 ```
 
 ```
 $ go run main.go
-                                 http://google.com = [  ] [ google ] [ com ] [  ] [  ]
-                                http://blog.google = [  ] [ blog ] [ google ] [  ] [  ]
-                      https://www.medi-cal.ca.gov/ = [ www.medi-cal ] [ ca ] [ gov ] [  ] [ / ]
-                                https://ato.gov.au = [  ] [ ato ] [ gov.au ] [  ] [  ]
-   http://a.very.complex-domain.co.uk:8080/foo/bar = [ a.very ] [ complex-domain ] [ co.uk ] [ 8080 ] [ /foo/bar ]
+                                 http://google.com = [  ] [ google ] [ com ] [  ] [  ] [ true ]
+                                http://blog.google = [  ] [ blog ] [ google ] [  ] [  ] [ true ]
+                      https://www.medi-cal.ca.gov/ = [ www.medi-cal ] [ ca ] [ gov ] [  ] [ / ] [ true ]
+                                https://ato.gov.au = [  ] [ ato ] [ gov.au ] [  ] [  ] [ true ]
+   http://a.very.complex-domain.co.uk:8080/foo/bar = [ a.very ] [ complex-domain ] [ co.uk ] [ 8080 ] [ /foo/bar ] [ true ]
+                 http://a.domain.that.is.unmanaged = [ a.domain.that ] [ is ] [ unmanaged ] [  ] [  ] [ false ]
 ```
 
 #### MIT License
