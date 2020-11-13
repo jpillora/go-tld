@@ -14,8 +14,8 @@ func run(input, sub, dom, tld string, icann bool, t *testing.T) {
 		t.Errorf("should have Domain '%s', got '%s'", dom, u.Domain)
 	} else if u.Subdomain != sub {
 		t.Errorf("should have Subdomain '%s', got '%s'", sub, u.Subdomain)
-	} else if u.Icann != icann {
-		t.Errorf("should have Icann '%t', got '%t'", icann, u.Icann)
+	} else if u.ICANN != icann {
+		t.Errorf("should have Icann '%t', got '%t'", icann, u.ICANN)
 	}
 }
 
