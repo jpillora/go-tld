@@ -14,6 +14,7 @@ import (
 //URL embeds net/url and adds extra fields ontop
 type URL struct {
 	Subdomain, Domain, TLD, Port string
+	ICANN                        bool
 	*url.URL
 }
 
@@ -30,6 +31,7 @@ func Parse(s string) (*URL, error) {
 	dom, port := domainPort(url.Host)
 	//etld+1
 	etld1, err := publicsuffix.EffectiveTLDPlusOne(dom)
+	_, icann := publicsuffix.PublicSuffix(dom)
 	if err != nil {
 		return nil, err
 	}
@@ -47,6 +49,7 @@ func Parse(s string) (*URL, error) {
 		Domain:    domName,
 		TLD:       tld,
 		Port:      port,
+		ICANN:     icann,
 		URL:       url,
 	}, nil
 }
