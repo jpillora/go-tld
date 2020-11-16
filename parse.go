@@ -31,7 +31,7 @@ func Parse(s string) (*URL, error) {
 	dom, port := domainPort(url.Host)
 	//etld+1
 	etld1, err := publicsuffix.EffectiveTLDPlusOne(dom)
-	_, icann := publicsuffix.PublicSuffix(dom)
+	_, icann := publicsuffix.PublicSuffix(strings.ToLower(dom))
 	if err != nil {
 		return nil, err
 	}

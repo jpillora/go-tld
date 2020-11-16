@@ -35,7 +35,7 @@ func main() {
 	for _, url := range urls {
 		u, _ := tld.Parse(url)
 		fmt.Printf("%50s = [ %s ] [ %s ] [ %s ] [ %s ] [ %s ] [ %t ]\n",
-			u, u.Subdomain, u.Domain, u.TLD, u.Port, u.Path, u.Icann)
+			u, u.Subdomain, u.Domain, u.TLD, u.Port, u.Path, u.ICANN)
 	}
 }
 ```

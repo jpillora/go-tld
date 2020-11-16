@@ -42,3 +42,7 @@ func Test4(t *testing.T) {
 func Test5(t *testing.T) {
 	run("https://foo.notmanaged", "", "foo", "notmanaged", false, t)
 }
+
+func Test6(t *testing.T) {
+	run("https://google.Com", "", "google", "Com", true, t)
+}
