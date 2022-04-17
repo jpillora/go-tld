@@ -1,4 +1,4 @@
-module github.com/jpillora/go-tld
+module github.com/wfinn/go-tld
 
 go 1.14
 
