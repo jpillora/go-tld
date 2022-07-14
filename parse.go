@@ -31,7 +31,12 @@ func Parse(s string) (*URL, error) {
 	dom, port := domainPort(url.Host)
 	//etld+1
 	etld1, err := publicsuffix.EffectiveTLDPlusOne(dom)
-	_, icann := publicsuffix.PublicSuffix(strings.ToLower(dom))
+	suffix, icann := publicsuffix.PublicSuffix(strings.ToLower(dom))
+	// HACK: attempt to support valid domains which are not registered with ICAN
+	if err != nil && !icann && suffix == dom {
+		etld1 = dom
+		err = nil
+	}
 	if err != nil {
 		return nil, err
 	}
