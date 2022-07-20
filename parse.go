@@ -5,6 +5,7 @@
 package tld
 
 import (
+	"fmt"
 	"net/url"
 	"strings"
 
@@ -42,6 +43,9 @@ func Parse(s string) (*URL, error) {
 	}
 	//convert to domain name, and tld
 	i := strings.Index(etld1, ".")
+	if i < 0 {
+		return nil, fmt.Errorf("tld: failed parsing %q", s)
+	}
 	domName := etld1[0:i]
 	tld := etld1[i+1:]
 	//and subdomain

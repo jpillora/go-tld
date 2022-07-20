@@ -1,12 +1,16 @@
 package tld
 
-import "testing"
+import (
+	"testing"
+)
 
-func run(input, sub, dom, tld string, icann bool, t *testing.T) {
+func run(input, sub, dom, tld string, icann, errorExpected bool, t *testing.T) {
 
 	u, err := Parse(input)
 
-	if err != nil {
+	if err != nil && errorExpected {
+		return
+	} else if err != nil {
 		t.Errorf("errored '%s'", err)
 	} else if u.TLD != tld {
 		t.Errorf("should have TLD '%s', got '%s'", tld, u.TLD)
@@ -20,33 +24,48 @@ func run(input, sub, dom, tld string, icann bool, t *testing.T) {
 }
 
 func Test0(t *testing.T) {
-	run("http://foo.com", "", "foo", "com", true, t)
+	run("http://foo.com", "", "foo", "com", true, false, t)
 }
 
 func Test1(t *testing.T) {
-	run("http://zip.zop.foo.com", "zip.zop", "foo", "com", true, t)
+	run("http://zip.zop.foo.com", "zip.zop", "foo", "com", true, false, t)
 }
 
 func Test2(t *testing.T) {
-	run("http://au.com.au", "", "au", "com.au", true, t)
+	run("http://au.com.au", "", "au", "com.au", true, false, t)
 }
 
 func Test3(t *testing.T) {
-	run("http://im.from.england.co.uk:1900", "im.from", "england", "co.uk", true, t)
+	run("http://im.from.england.co.uk:1900", "im.from", "england", "co.uk", true, false, t)
 }
 
 func Test4(t *testing.T) {
-	run("https://google.com", "", "google", "com", true, t)
+	run("https://google.com", "", "google", "com", true, false, t)
 }
 
 func Test5(t *testing.T) {
-	run("https://foo.notmanaged", "", "foo", "notmanaged", false, t)
+	run("https://foo.notmanaged", "", "foo", "notmanaged", false, false, t)
 }
 
 func Test6(t *testing.T) {
-	run("https://google.Com", "", "google", "Com", true, t)
+	run("https://google.Com", "", "google", "Com", true, false, t)
 }
 
 func Test7(t *testing.T) {
-	run("https://github.io", "", "github", "io", false, t)
+	run("https://github.io", "", "github", "io", false, false, t)
+}
+
+func Test8(t *testing.T) {
+	// test expects error
+	run("https://no_dot_should_not_panic", "", "", "", false, true, t)
+}
+
+func Test9(t *testing.T) {
+	// test expects error
+	run("https://.start_with_dot_should_fail", "", "", "", false, true, t)
+}
+
+func Test10(t *testing.T) {
+	// test expects error
+	run("https://ends_with_dot_should_fail.", "", "", "", false, true, t)
 }
