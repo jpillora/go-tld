@@ -2,7 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/jpillora/go-tld?status.svg)](https://pkg.go.dev/github.com/jpillora/go-tld?tab=doc)  [![Tests](https://github.com/jpillora/go-tld/workflows/Tests/badge.svg)](https://github.com/jpillora/go-tld/actions?workflow=Tests)
 
-The `tld` package has the same API ([see godoc](http://godoc.org/github.com/jpillora/go-tld)) as `net/url` except `tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`.
+The `tld` package has the same API ([see godoc](http://godoc.org/github.com/jpillora/go-tld)) as `net/url` except `tld.URL` contains extra fields: `Subdomain`, `Domain`, `TLD` and `Port`. Note: `TLD` is actually "eTLD", so `Domain+TLD` is the often desired "eTLD+1".
 
 _Note:_ This is a wrapper around http://golang.org/x/net/publicsuffix.
 
